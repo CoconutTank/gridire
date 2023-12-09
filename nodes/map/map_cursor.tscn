@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://u62pdscuc1vo"]
+
+[ext_resource type="Script" path="res://scripts/map/map_cursor.gd" id="1_spf8l"]
+[ext_resource type="Texture2D" uid="uid://bje8vm1ifkbmf" path="res://assets/graphics/map_cursor/map_cursor_corners.png" id="2_7deq3"]
+[ext_resource type="Texture2D" uid="uid://ds5c53a4xpmub" path="res://assets/graphics/map_cursor/map_cursor_sides.png" id="3_g64w4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vvmja"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7deq3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g64w4")
+}],
+"loop": true,
+"name": &"wait",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u7121"]
+size = Vector2(64, 64)
+
+[node name="MapCursor" type="Area2D"]
+script = ExtResource("1_spf8l")
+
+[node name="MapCursorAnims" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_vvmja")
+animation = &"wait"
+frame = 1
+frame_progress = 0.973722
+
+[node name="MapCursorCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_u7121")
