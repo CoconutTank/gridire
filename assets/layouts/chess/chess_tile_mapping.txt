@@ -1,0 +1,2 @@
+r,red_chess
+w,white_chess

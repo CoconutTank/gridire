@@ -1,109 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://05mnkxhwroky"]
+[gd_scene load_steps=11 format=3 uid="uid://05mnkxhwroky"]
 
 [ext_resource type="Script" path="res://scripts/map/map_tile.gd" id="1_4008o"]
-[ext_resource type="Texture2D" uid="uid://byaf27052ndbi" path="res://assets/graphics/wood_board/tiles/cross_tile.png" id="2_afgoi"]
-[ext_resource type="Texture2D" uid="uid://uyoq16h37gp4" path="res://assets/graphics/wood_board/tiles/empty_tile.png" id="2_bl5ax"]
-[ext_resource type="Texture2D" uid="uid://c3nyc84vr1k3b" path="res://assets/graphics/wood_board/tiles/corner_down_left_tile.png" id="2_rvfnn"]
-[ext_resource type="Texture2D" uid="uid://dcnkhmxg3n4km" path="res://assets/graphics/wood_board/tiles/corner_down_right_tile.png" id="3_86wvd"]
-[ext_resource type="Texture2D" uid="uid://hu6hxbf5agk6" path="res://assets/graphics/wood_board/tiles/cross_dot_tile.png" id="3_t35cq"]
-[ext_resource type="Texture2D" uid="uid://bkx3isg35nbp3" path="res://assets/graphics/wood_board/tiles/corner_up_left_tile.png" id="4_ilyjt"]
-[ext_resource type="Texture2D" uid="uid://bj13p1fnb82mb" path="res://assets/graphics/wood_board/tiles/t_down_tile.png" id="5_gboth"]
-[ext_resource type="Texture2D" uid="uid://b81svqxc1kd46" path="res://assets/graphics/wood_board/tiles/corner_up_right_tile.png" id="5_uyqei"]
-[ext_resource type="Texture2D" uid="uid://bur85kn0wfxix" path="res://assets/graphics/wood_board/tiles/t_left_tile.png" id="6_d7los"]
-[ext_resource type="Texture2D" uid="uid://dke4jxnnaxt13" path="res://assets/graphics/wood_board/tiles/t_right_tile.png" id="7_xqs8a"]
-[ext_resource type="Texture2D" uid="uid://u10eopqj8u3h" path="res://assets/graphics/wood_board/tiles/t_up_tile.png" id="8_bxbun"]
-[ext_resource type="Texture2D" uid="uid://ct2xts0wyodcb" path="res://assets/graphics/wood_board/tiles/diagonal_down_left_tile.png" id="8_cx01h"]
-[ext_resource type="Texture2D" uid="uid://cx7cgjveuymgu" path="res://assets/graphics/wood_board/tiles/diagonal_down_right_tile.png" id="9_3t7wf"]
-[ext_resource type="Texture2D" uid="uid://dwohyoskoblmm" path="res://assets/graphics/wood_board/tiles/diagonal_up_left_tile.png" id="10_chhc5"]
-[ext_resource type="Texture2D" uid="uid://cjjpv4jmk8e3g" path="res://assets/graphics/wood_board/tiles/diagonal_up_right_tile.png" id="11_p5x7y"]
-[ext_resource type="Texture2D" uid="uid://dmtuc5m62ggjt" path="res://assets/graphics/wood_board/tiles/star_tile.png" id="13_rvwdq"]
-[ext_resource type="Texture2D" uid="uid://dn3yt7ckhjxbp" path="res://assets/graphics/wood_board/tiles/thick_border_tile.png" id="18_ecwji"]
+[ext_resource type="Texture2D" uid="uid://bskk8y3np40am" path="res://assets/graphics/gridire/tiles/empty_tile.png" id="2_5uphl"]
+[ext_resource type="Texture2D" uid="uid://2h8tpss2unbw" path="res://assets/graphics/chess/tiles/red_chess_tile.png" id="3_g28q5"]
+[ext_resource type="Texture2D" uid="uid://dm1dhd78af03x" path="res://assets/graphics/gridire/tiles/thick_border_tile.png" id="3_t4luw"]
+[ext_resource type="Texture2D" uid="uid://d32ttphxdaw85" path="res://assets/graphics/gridire/tiles/thick_border_ring_tile.png" id="4_ggbve"]
+[ext_resource type="Texture2D" uid="uid://cs37pu3afdy7e" path="res://assets/graphics/gridire/tiles/thick_border_tile_river_down.png" id="5_xnqig"]
+[ext_resource type="Texture2D" uid="uid://cm15qlithxjdc" path="res://assets/graphics/gridire/tiles/thick_border_tile_river_up.png" id="6_cx3b8"]
+[ext_resource type="Texture2D" uid="uid://nuwpca1bjdf8" path="res://assets/graphics/chess/tiles/white_chess_tile.png" id="8_jyu5n"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_it4qg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_rvfnn")
-}],
-"loop": true,
-"name": &"corner_down_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_86wvd")
-}],
-"loop": true,
-"name": &"corner_down_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_ilyjt")
-}],
-"loop": true,
-"name": &"corner_up_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_uyqei")
-}],
-"loop": true,
-"name": &"corner_up_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_afgoi")
-}],
-"loop": true,
-"name": &"cross",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_t35cq")
-}],
-"loop": true,
-"name": &"cross_dot",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_cx01h")
-}],
-"loop": true,
-"name": &"diagonal_down_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("9_3t7wf")
-}],
-"loop": true,
-"name": &"diagonal_down_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("10_chhc5")
-}],
-"loop": true,
-"name": &"diagonal_up_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("11_p5x7y")
-}],
-"loop": true,
-"name": &"diagonal_up_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_bl5ax")
+"texture": ExtResource("2_5uphl")
 }],
 "loop": true,
 "name": &"empty",
@@ -111,50 +21,50 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("13_rvwdq")
+"texture": ExtResource("3_g28q5")
 }],
 "loop": true,
-"name": &"star",
+"name": &"red_chess",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_gboth")
-}],
-"loop": true,
-"name": &"t_down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_d7los")
-}],
-"loop": true,
-"name": &"t_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("7_xqs8a")
-}],
-"loop": true,
-"name": &"t_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("8_bxbun")
-}],
-"loop": true,
-"name": &"t_up",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("18_ecwji")
+"texture": ExtResource("3_t4luw")
 }],
 "loop": true,
 "name": &"thick_border",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ggbve")
+}],
+"loop": true,
+"name": &"thick_border_ring",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_xnqig")
+}],
+"loop": true,
+"name": &"thick_border_river_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_cx3b8")
+}],
+"loop": true,
+"name": &"thick_border_river_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_jyu5n")
+}],
+"loop": true,
+"name": &"white_chess",
 "speed": 5.0
 }]
 
@@ -166,7 +76,7 @@ script = ExtResource("1_4008o")
 
 [node name="MapTileAnims" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_it4qg")
-animation = &"thick_border"
+animation = &"white_chess"
 
 [node name="MapTileCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_f0e4n")

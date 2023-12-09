@@ -1,0 +1,3 @@
+0,thick_border
+d,thick_border_river_down
+u,thick_border_river_up

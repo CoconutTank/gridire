@@ -4,3 +4,5 @@
 
 [node name="Node" type="Node"]
 script = ExtResource("1_ngsc3")
+TILE_MAPPING_FILEPATH = "res://assets/layouts/chess/chess_tile_mapping.txt"
+MAP_FILEPATH = "res://assets/layouts/chess/chess_board.txt"
