@@ -1,5 +1,9 @@
 confirm
 cancel
+up
+down
+left
+right
 over_selectable,[{"name":"affected_piece","type":"Area2D"}]
 off_selectable,[{"name":"affected_piece","type":"Piece"}]
 selected,[{"name":"affected_piece","type":"Piece"}]

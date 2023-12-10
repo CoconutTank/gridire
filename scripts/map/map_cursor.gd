@@ -16,8 +16,8 @@ const CURSOR_STATUS_SELECTED = "selected"
 
 
 var curr_status = CURSOR_STATUS_NEUTRAL
-var status_changed = false
 var new_status = CURSOR_STATUS_NEUTRAL
+var status_changed = false
 
 
 var affected_piece
@@ -74,11 +74,17 @@ func set_next_map_cursor_status(new_affected_piece : Piece, next_status : String
 			+ next_status + ")")
 
 
+# If an affected piece is known to the map cursor, it'll call the "on_select"
+# function on that affected piece.
+# This function is listening for the confirm signal.
 func select_piece_if_able():
 	if affected_piece != null:
 		affected_piece.on_select()
 
 
+# If an affected piece is known to the map cursor, it'll call the "on_unselect"
+# function on that affected piece.
+# This function is listening for the cancel signal.
 func unselect_piece_if_able():
 	if affected_piece != null:
 		affected_piece.on_unselect()

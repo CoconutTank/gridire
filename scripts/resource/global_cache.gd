@@ -83,11 +83,11 @@ const RES_DIR = "res://"
 
 # An enum specifying cardinal directions, and a dictionary that maps each
 # direction to their normalized vector.
-enum DIRECTION {UP, RIGHT, DOWN, LEFT}
+enum DIRECTION {UP, LEFT, DOWN, RIGHT}
 var DIRECTION_VECTORS = {
 	DIRECTION.UP: Vector2.UP,
-	DIRECTION.DOWN: Vector2.DOWN,
 	DIRECTION.LEFT: Vector2.LEFT,
+	DIRECTION.DOWN: Vector2.DOWN,
 	DIRECTION.RIGHT: Vector2.RIGHT
 }
 

@@ -42,21 +42,29 @@ func set_piece_display_type(display_type : String):
 	$PieceAnims.play(piece_display_type)
 
 
+# Tells the SignalHub to emit the selected signal (and pass in itself), and
+# updates its display to show it is in a ready state.
 func on_select():
 	SignalHub.emit_user_signal("selected", [self])
 	set_piece_display_type("ready_smiley_face")
 
 
+# Tells the SignalHub to emit the unselected signal (and pass in itself), and
+# updates its display to show it is in a neutral state.
 func on_unselect():
 	SignalHub.emit_user_signal("unselected", [self])
 	set_piece_display_type("smiley_face")
 
 
+# Specifically checks if the Area2D that entered is a map cursor. If so, tells
+# the SignalHub to emit the over_selectable signal (and pass in itself).
 func _on_area_entered(area):
 	if area is MapCursor:
 		SignalHub.emit_user_signal("over_selectable", [self])
 
 
+# Specifically checks if the Area2D that left is a map cursor. If so, tells the
+# SignalHub to emit the off_selectable signal (and pass in itself).
 func _on_area_exited(area):
 	if area is MapCursor:
 		SignalHub.emit_user_signal("off_selectable", [self])
