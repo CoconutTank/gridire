@@ -69,9 +69,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0e4n"]
-size = Vector2(64, 64)
+size = Vector2(48, 48)
 
 [node name="MapTile" type="Area2D"]
+collision_mask = 2
 script = ExtResource("1_4008o")
 
 [node name="MapTileAnims" type="AnimatedSprite2D" parent="."]

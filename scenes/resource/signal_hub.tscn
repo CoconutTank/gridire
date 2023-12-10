@@ -4,3 +4,5 @@
 
 [node name="Node" type="Node"]
 script = ExtResource("1_rms1c")
+print_signal_hub_activity = true
+user_signal_filepath = "res://assets/misc/additional_user_signals.txt"

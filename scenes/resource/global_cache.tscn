@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/resource/global_cache.gd" id="1_ngsc3"]
 
-[node name="Node" type="Node"]
+[node name="GlobalCache" type="Node"]
 script = ExtResource("1_ngsc3")
-TILE_MAPPING_FILEPATH = "res://assets/layouts/chess/chess_tile_mapping.txt"
-MAP_FILEPATH = "res://assets/layouts/chess/chess_board.txt"
+TILE_MAPPING_FILE_PATH = "res://assets/layouts/chess/chess_tile_mapping.txt"
+MAP_FILE_PATH = "res://assets/layouts/chess/chess_board.txt"
+PIECE_MAPPING_FILE_PATH = "res://assets/layouts/test/test_piece_mapping.txt"
+PIECE_PLACEMENT_FILE_PATH = "res://assets/layouts/test/test_piece_placement.txt"

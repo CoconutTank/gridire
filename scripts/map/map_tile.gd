@@ -1,15 +1,17 @@
 class_name MapTile
 extends Area2D
 
+
 # Stores the tile display type for this map tile.
 # This type should map to a key being used in GlobalCache.TILE_MAPPING.
 var tile_display_type : String
 
 
-# Stores the coordinates of thjis map tile relative to the map it is on.
+# Stores the coordinates of this map tile relative to the map it is on.
 # These coordinates should be in units of map tiles.
-# Coordinates is different from the map tile's innate position, which is in
-# units of pixels and determines where the map tile should be drawn.
+# Coordinates are different from innate position, which is in units of pixels
+# and determines where the map tile should be drawn on screen.
+# Coordinates are also always expected to be integers (and not floats).
 var coordinates : Vector2
 
 
@@ -34,7 +36,7 @@ func _process(delta):
 
 
 # Updates tile_display_type for this tile, and also sets this tile to display
-# the animation mapped to this tile_mapping_key.
+# the animation mapped to this tile_display_type.
 func set_tile_display_type(display_type : String):
 	tile_display_type = display_type
 	$MapTileAnims.play(tile_display_type)

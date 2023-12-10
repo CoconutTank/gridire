@@ -1,8 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://u62pdscuc1vo"]
+[gd_scene load_steps=21 format=3 uid="uid://u62pdscuc1vo"]
 
 [ext_resource type="Script" path="res://scripts/map/map_cursor.gd" id="1_spf8l"]
 [ext_resource type="Texture2D" uid="uid://bje8vm1ifkbmf" path="res://assets/graphics/map_cursor/map_cursor_corners.png" id="2_7deq3"]
+[ext_resource type="Texture2D" uid="uid://bne65w42ersda" path="res://assets/graphics/map_cursor/map_cursor_selectable_001.png" id="2_8xbej"]
+[ext_resource type="Texture2D" uid="uid://bkpvvtpbkhmfg" path="res://assets/graphics/map_cursor/map_cursor_selectable_002.png" id="3_aroh2"]
 [ext_resource type="Texture2D" uid="uid://ds5c53a4xpmub" path="res://assets/graphics/map_cursor/map_cursor_sides.png" id="3_g64w4"]
+[ext_resource type="Texture2D" uid="uid://c0qp4sr2yrgro" path="res://assets/graphics/map_cursor/map_cursor_selectable_003.png" id="4_exp2j"]
+[ext_resource type="Texture2D" uid="uid://dh5bj65k7d3i1" path="res://assets/graphics/map_cursor/map_cursor_selected_001.png" id="5_e5pqh"]
+[ext_resource type="Texture2D" uid="uid://7og35bkv26es" path="res://assets/graphics/map_cursor/map_cursor_selected_002.png" id="6_64peu"]
+[ext_resource type="Texture2D" uid="uid://d157db08lxtn" path="res://assets/graphics/map_cursor/map_cursor_selected_003.png" id="7_7fpq4"]
+[ext_resource type="Texture2D" uid="uid://bhnsaov3xknhj" path="res://assets/graphics/map_cursor/map_cursor_selected_004.png" id="8_hgasi"]
+[ext_resource type="Texture2D" uid="uid://bx8j0rbwdrlqd" path="res://assets/graphics/map_cursor/map_cursor_selected_005.png" id="9_pr8gc"]
+[ext_resource type="Texture2D" uid="uid://3ja2hdxs4cnl" path="res://assets/graphics/map_cursor/map_cursor_selected_006.png" id="10_1t4xm"]
+[ext_resource type="Texture2D" uid="uid://biakohncocif" path="res://assets/graphics/map_cursor/map_cursor_selected_007.png" id="11_54a20"]
+[ext_resource type="Texture2D" uid="uid://c5xqlanr4gthc" path="res://assets/graphics/map_cursor/map_cursor_selected_008.png" id="12_eyopp"]
+[ext_resource type="Texture2D" uid="uid://c02p13eenu48o" path="res://assets/graphics/map_cursor/map_cursor_selected_009.png" id="13_34h1v"]
+[ext_resource type="Texture2D" uid="uid://cgwh4vdnwb6p8" path="res://assets/graphics/map_cursor/map_cursor_selected_010.png" id="14_1eoue"]
+[ext_resource type="Texture2D" uid="uid://coob2jrpv0faj" path="res://assets/graphics/map_cursor/map_cursor_selected_011.png" id="15_rve55"]
+[ext_resource type="Texture2D" uid="uid://fhntj7fip3x0" path="res://assets/graphics/map_cursor/map_cursor_selected_012.png" id="16_uw6bl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vvmja"]
 animations = [{
@@ -14,21 +29,76 @@ animations = [{
 "texture": ExtResource("3_g64w4")
 }],
 "loop": true,
-"name": &"wait",
+"name": &"neutral",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8xbej")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_aroh2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_exp2j")
+}],
+"loop": true,
+"name": &"over_selectable",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_e5pqh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_64peu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7fpq4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_hgasi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pr8gc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1t4xm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_54a20")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_eyopp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_34h1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_1eoue")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_rve55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_uw6bl")
+}],
+"loop": true,
+"name": &"selected",
+"speed": 30.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u7121"]
-size = Vector2(64, 64)
+size = Vector2(48, 48)
 
 [node name="MapCursor" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_spf8l")
 
 [node name="MapCursorAnims" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_vvmja")
-animation = &"wait"
-frame = 1
-frame_progress = 0.973722
+animation = &"over_selectable"
 
 [node name="MapCursorCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_u7121")

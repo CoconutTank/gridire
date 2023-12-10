@@ -19,6 +19,13 @@ config/icon="res://icon.svg"
 
 SignalHub="*res://scenes/resource/signal_hub.tscn"
 GlobalCache="*res://scenes/resource/global_cache.tscn"
+GlobalVerifier="*res://scenes/resource/global_verifier.tscn"
+
+[layer_names]
+
+2d_physics/layer_1="map_tiles"
+2d_physics/layer_2="map_cursor"
+2d_physics/layer_3="pieces"
 
 [rendering]
 
