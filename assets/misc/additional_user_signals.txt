@@ -1,5 +1,4 @@
-funny
-laugh
-cry
-run
-jump,[{"name":"height","type":"TYPE_INT"}]
+confirm
+cancel
+over_selectable
+off_selectable

@@ -9,23 +9,23 @@ extends Node
 @export var print_signal_hub_activity = false
 
 
-# Allows the user to specify a file path for additional user signals to create.
-# This argument is optional, but should be kept empty if not in use.
-@export var user_signal_filepath : String
+## Allows the user to specify a file path for additional user signals to create.
+## [br][br]
+## This argument is optional, but should be kept empty if not in use.
+## [br][br]
+## Signals provided in this file should each be on one line and match one of the
+## following formats:
+## [br]
+## - $signal_name_only
+## [br]
+## - $signal_name,[{"$arg1_name":"arg1_name_value","$arg1_type":"$arg1_type_value"},...]
+@export var user_signal_file_path : String
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	create_user_signal("confirm")
-	create_user_signal("cancel")
-	create_user_signal("over_selectable")
-	create_user_signal("off_selectable")
-	if !user_signal_filepath.is_empty():
-		add_more_user_signals_via_file(user_signal_filepath)
-		"""
-		connect_user_signal("jump", respond_to_jump)
-		emit_user_signal("jump", [10])
-		"""
+	if !user_signal_file_path.is_empty():
+		add_user_signals_via_file(user_signal_file_path)
 	print()
 
 
@@ -80,7 +80,8 @@ func emit_user_signal(signal_name : String, signal_args := []):
 			+ signal_name + "'")
 
 
-func add_more_user_signals_via_file(file_path : String):
+# Adds additional user signals by file from the given file path.
+func add_user_signals_via_file(file_path : String):
 	# Verify that the given file path is compliant.
 	if GlobalVerifier.verify_file_path(file_path):
 		var user_signal_lines = FileAccess.open(file_path, FileAccess.READ).get_as_text().split(GlobalCache.NEW_LINE_DELIMITER)
@@ -98,9 +99,3 @@ func add_more_user_signals_via_file(file_path : String):
 							+ user_signal_data[1] + "'")
 				else:
 					create_user_signal(user_signal_name)
-
-
-"""
-func respond_to_jump(height : int):
-	print("jumped up " + str(height) + " stories!")
-"""
