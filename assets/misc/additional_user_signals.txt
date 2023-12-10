@@ -1,4 +1,6 @@
 confirm
 cancel
-over_selectable
-off_selectable
+over_selectable,[{"name":"affected_piece","type":"Area2D"}]
+off_selectable,[{"name":"affected_piece","type":"Piece"}]
+selected,[{"name":"affected_piece","type":"Piece"}]
+unselected,[{"name":"affected_piece","type":"Piece"}]

@@ -14,9 +14,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	for key in GlobalCache.KEY_BINDINGS[GlobalCache.ACTION.CONFIRM]:
+		if Input.is_action_pressed(key):
+			SignalHub.emit_signal("confirm")
+			return
+	for key in GlobalCache.KEY_BINDINGS[GlobalCache.ACTION.CANCEL]:
+		if Input.is_action_pressed(key):
+			SignalHub.emit_signal("cancel")
+			return
 
 
-# Called upon input events. Mostly used for tracking the mouse.
+# Called upon input events.
 func _input(event):
-	$MapCursor.grid_move_to(event.position, map_offset)
+	if event is InputEventMouseMotion:
+		$MapCursor.grid_move_to(event.position, map_offset)

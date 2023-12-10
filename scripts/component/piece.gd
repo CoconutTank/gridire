@@ -1,3 +1,4 @@
+class_name Piece
 extends Area2D
 
 
@@ -41,11 +42,21 @@ func set_piece_display_type(display_type : String):
 	$PieceAnims.play(piece_display_type)
 
 
+func on_select():
+	SignalHub.emit_user_signal("selected", [self])
+	set_piece_display_type("ready_smiley_face")
+
+
+func on_unselect():
+	SignalHub.emit_user_signal("unselected", [self])
+	set_piece_display_type("smiley_face")
+
+
 func _on_area_entered(area):
 	if area is MapCursor:
-		SignalHub.emit_user_signal("over_selectable")
+		SignalHub.emit_user_signal("over_selectable", [self])
 
 
 func _on_area_exited(area):
 	if area is MapCursor:
-		SignalHub.emit_user_signal("off_selectable")
+		SignalHub.emit_user_signal("off_selectable", [self])

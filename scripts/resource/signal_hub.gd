@@ -18,7 +18,13 @@ extends Node
 ## [br]
 ## - $signal_name_only
 ## [br]
-## - $signal_name,[{"$arg1_name":"arg1_name_value","$arg1_type":"$arg1_type_value"},...]
+## - $signal_name,[{"name":"$arg1_name","type":"$arg1_type"},...]
+## [br][br]
+## Examples:
+## [br]
+## - confirm
+## [br]
+## - selected,[{"name":"affected_piece","type":"Piece"}]
 @export var user_signal_file_path : String
 
 

@@ -92,6 +92,48 @@ var DIRECTION_VECTORS = {
 }
 
 
+# Constants that match the actions defined in Project Settings > Input Map.
+const M_LEFT_CLICK = "m_left_click"
+const M_RIGHT_CLICK = "m_right_click"
+const KB_W = "kb_w"
+const KB_A = "kb_a"
+const KB_S = "kb_s"
+const KB_D = "kb_d"
+const KB_LEFT = "kb_left"
+const KB_RIGHT = "kb_right"
+const KB_UP = "kb_up"
+const KB_DOWN = "kb_down"
+const KB_Z = "kb_z"
+const KB_X = "kb_x"
+
+
+# An enum representing the actions that the player can take outside of moving.
+enum ACTION {CONFIRM=10, CANCEL=11, OPTIONS=12}
+
+
+# Dictionary of key bindings.
+var KEY_BINDINGS = {
+	DIRECTION.UP: [KB_UP, KB_W],
+	DIRECTION.LEFT: [KB_LEFT, KB_A],
+	DIRECTION.DOWN: [KB_DOWN, KB_S],
+	DIRECTION.RIGHT: [KB_RIGHT, KB_D],
+	ACTION.CONFIRM: [M_LEFT_CLICK, KB_Z],
+	ACTION.CANCEL: [M_RIGHT_CLICK, KB_X],
+	#KB_UP: DIRECTION.UP,
+	#KB_W: DIRECTION.UP,
+	#KB_LEFT: DIRECTION.LEFT,
+	#KB_A: DIRECTION.LEFT,
+	#KB_DOWN: DIRECTION.DOWN,
+	#KB_S: DIRECTION.DOWN,
+	#KB_RIGHT: DIRECTION.RIGHT,
+	#KB_D: DIRECTION.RIGHT,
+	#M_LEFT_CLICK: ACTION.CONFIRM,
+	#KB_Z: ACTION.CONFIRM,
+	#M_RIGHT_CLICK: ACTION.CANCEL,
+	#KB_X: ACTION.CANCEL,
+}
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_tile_mapping_file(TILE_MAPPING_FILE_PATH)
