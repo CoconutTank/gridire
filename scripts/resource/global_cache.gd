@@ -32,7 +32,7 @@ extends Node
 ## separated by a comma (,) and no spaces.
 ## [br][br]
 ## As of now, the values should be strings of sprite animation names that
-## exist in the PieceAnims node of Piece.
+## exist in the PieceAnims node of GamePiece.
 ## [br][br]
 ## DO NOT USE COMMAS (,) OR NEWLINES (\n) FOR ANY PIECE MAPPING. THESE CHARS ARE
 ## ALREADY RESERVED AS DELIMITERS AND WILL NOT WORK.
@@ -49,9 +49,17 @@ extends Node
 @export var PIECE_PLACEMENT_FILE_PATH : String
 
 
+## File path to the text file for externalizing UID_COUNTER.
+## [br][br]
+## UID_COUNTER is a dictionary that stores counts for unique ID types and is
+## keyed on said ID types. The combination of ID type and their associated
+## counts are used to generate unique IDs for instances.
+@export var UID_COUNTER_FILE_PATH : String
+
+
 # The standard length of a tile, in units of pixels. Tiles are expected to be
 # equal in length on all four sides.
-@export var TILE_LENGTH = 64
+const TILE_LENGTH = 64
 
 
 # A dictionary which contains mappings of keys to tile typings.
@@ -84,7 +92,7 @@ const RES_DIR = "res://"
 # An enum specifying cardinal directions, and a dictionary that maps each
 # direction to their normalized vector.
 enum DIRECTION {UP, LEFT, DOWN, RIGHT}
-var DIRECTION_VECTORS = {
+const DIRECTION_VECTORS = {
 	DIRECTION.UP: Vector2.UP,
 	DIRECTION.LEFT: Vector2.LEFT,
 	DIRECTION.DOWN: Vector2.DOWN,
@@ -92,46 +100,21 @@ var DIRECTION_VECTORS = {
 }
 
 
-# Constants that match the actions defined in Project Settings > Input Map.
-const M_LEFT_CLICK = "m_left_click"
-const M_RIGHT_CLICK = "m_right_click"
-const KB_W = "kb_w"
-const KB_A = "kb_a"
-const KB_S = "kb_s"
-const KB_D = "kb_d"
-const KB_LEFT = "kb_left"
-const KB_RIGHT = "kb_right"
-const KB_UP = "kb_up"
-const KB_DOWN = "kb_down"
-const KB_Z = "kb_z"
-const KB_X = "kb_x"
+# Action names used for this game.
+# These actions should map to actions registered in the InputMap.
+const CONFIRM_ACTION = "confirm_action"
+const CANCEL_ACTION = "cancel_action"
+const MENU_ACTION = "menu_action"
+const MAP_MOVE_UP = "map_move_up"
+const MAP_MOVE_LEFT = "map_move_left"
+const MAP_MOVE_DOWN = "map_move_down"
+const MAP_MOVE_RIGHT = "map_move_right"
 
 
-# An enum representing the actions that the player can take outside of moving.
-enum ACTION {CONFIRM=10, CANCEL=11, OPTIONS=12}
-
-
-# Dictionary of key bindings.
-var KEY_BINDINGS = {
-	DIRECTION.UP: [KB_UP, KB_W],
-	DIRECTION.LEFT: [KB_LEFT, KB_A],
-	DIRECTION.DOWN: [KB_DOWN, KB_S],
-	DIRECTION.RIGHT: [KB_RIGHT, KB_D],
-	ACTION.CONFIRM: [M_LEFT_CLICK, KB_Z],
-	ACTION.CANCEL: [M_RIGHT_CLICK, KB_X],
-	#KB_UP: DIRECTION.UP,
-	#KB_W: DIRECTION.UP,
-	#KB_LEFT: DIRECTION.LEFT,
-	#KB_A: DIRECTION.LEFT,
-	#KB_DOWN: DIRECTION.DOWN,
-	#KB_S: DIRECTION.DOWN,
-	#KB_RIGHT: DIRECTION.RIGHT,
-	#KB_D: DIRECTION.RIGHT,
-	#M_LEFT_CLICK: ACTION.CONFIRM,
-	#KB_Z: ACTION.CONFIRM,
-	#M_RIGHT_CLICK: ACTION.CANCEL,
-	#KB_X: ACTION.CANCEL,
-}
+# A dictionary which stores string IDs and incrementing counters for each ID.
+# This dictionary should not be consulted directly. If the user wants to get
+# a unique ID, they should call GlobalCache.generate_uid(id_type).
+var UID_COUNTER = {}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -140,6 +123,9 @@ func _ready():
 	print_tile_mapping()
 	load_piece_mapping_file(PIECE_MAPPING_FILE_PATH)
 	print_piece_mapping()
+	await await_time(5.0)
+	for type in UID_COUNTER:
+		print("UID_COUNTER[" + type + "] = " + str(UID_COUNTER[type]))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -164,14 +150,15 @@ func gridify_position(newPosition : Vector2, offset := Vector2.ZERO):
 # Loads a tile mapping, based on the given file path.
 func load_tile_mapping_file(file_path : String):
 	# Verify that the given file path is compliant.
-	if GlobalVerifier.verify_file_path(file_path):
+	if GlobalValidator.validate_file_path(file_path):
 		var tile_mapping_lines = FileAccess.open(file_path, FileAccess.READ).get_as_text().split(NEW_LINE_DELIMITER)
 		for line in tile_mapping_lines:
-			var pair = line.split(COMMA_DELIMITER)
-			# Only lines which are a single key-value pair separated by a "," are
-			# acceptable!
-			if pair.size() == 2:
-				TILE_MAPPING[pair[0]] = pair[1]
+			if !line.dedent().is_empty():
+				var pair = line.split(COMMA_DELIMITER)
+				# Only lines which are a single key-value pair separated by a "," are
+				# acceptable!
+				if pair.size() == 2:
+					TILE_MAPPING[pair[0]] = pair[1]
 
 
 # Prints the current tile mapping, if available.
@@ -185,14 +172,15 @@ func print_tile_mapping():
 # Loads a piece mapping, based on the given file path.
 func load_piece_mapping_file(file_path : String):
 	# Verify that the given file path is compliant.
-	if GlobalVerifier.verify_file_path(file_path):
+	if GlobalValidator.validate_file_path(file_path):
 		var piece_mapping_lines = FileAccess.open(file_path, FileAccess.READ).get_as_text().split(NEW_LINE_DELIMITER)
 		for line in piece_mapping_lines:
-			var pair = line.split(COMMA_DELIMITER)
-			# Only lines which are a single key-value pair separated by a "," are
-			# acceptable!
-			if pair.size() == 2:
-				PIECE_MAPPING[pair[0]] = pair[1]
+			if !line.dedent().is_empty():
+				var pair = line.split(COMMA_DELIMITER)
+				# Only lines which are a single key-value pair separated by a "," are
+				# acceptable!
+				if pair.size() == 2:
+					PIECE_MAPPING[pair[0]] = pair[1]
 
 
 # Prints the current piece mapping, if available.
@@ -201,3 +189,55 @@ func print_piece_mapping():
 	for key in PIECE_MAPPING.keys():
 		print("PIECE_MAPPING[" + str(key) + "] = " + PIECE_MAPPING[key])
 	print()
+
+
+# Returns a unique ID for the given ID type. This is achieved by using a
+# counter that is always incrementing and appending that to the end of the ID
+# type.
+# The counters always start at 1 for newly tracked ID types.
+func generate_uid(id_type : String):
+	var new_uid : String
+	if id_type in UID_COUNTER:
+		var counter = UID_COUNTER[id_type] + 1
+		new_uid = id_type + str(counter)
+		UID_COUNTER[id_type] = counter
+	else:
+		new_uid = id_type + "1"
+		UID_COUNTER[id_type] = 1
+	return new_uid
+
+
+# Saves the UID_COUNTER to a file at the given file path.
+# The ID types and their counters will be saved in plain text, separated by
+# commas.
+# Use this function to preserve the UID_COUNTER between sessions.
+func save_uid_file(file_path : String):
+	# Verify that the given file path is compliant.
+	# The file doesn't need to exist though.
+	if GlobalValidator.validate_file_path(file_path, false):
+		var uid_file = FileAccess.open(file_path, FileAccess.WRITE)
+		for type in UID_COUNTER:
+			uid_file.store_line(type + COMMA_DELIMITER + str(UID_COUNTER[type]))
+
+
+# Loads the contents of a valid file to UID_COUNTER.
+# UID_COUNTER will be cleared before the file is read.
+# Use this function to retrieve the UID_COUNTER between sessions.
+func load_uid_file(file_path : String):
+	# Verify that the given file path is compliant.
+	if GlobalValidator.validate_file_path(file_path):
+		UID_COUNTER.clear()
+		var uid_file_lines = FileAccess.open(file_path, FileAccess.READ).get_as_text().split(NEW_LINE_DELIMITER)		
+		for line in uid_file_lines:
+			if !line.dedent().is_empty():
+				var pair = line.split(COMMA_DELIMITER)
+				# Only lines which are a single key-value pair separated by a "," are
+				# acceptable!
+				if pair.size() == 2:
+					UID_COUNTER[pair[0]] = int(pair[1])
+
+
+# Creates a timer that lasts for the as long as the given time duration.
+# This function can be used to help defer logic when necessary.
+func await_time(time : float):
+	await get_tree().create_timer(time).timeout

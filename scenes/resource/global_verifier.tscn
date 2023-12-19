@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cblsiafnk7t74"]
-
-[ext_resource type="Script" path="res://scripts/resource/global_verifier.gd" id="1_8ebnw"]
-
-[node name="GlobalVerifier" type="Node"]
-script = ExtResource("1_8ebnw")

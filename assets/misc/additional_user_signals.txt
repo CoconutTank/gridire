@@ -1,5 +1,6 @@
-confirm
-cancel
+confirm_action
+cancel_action
+menu_action
 up
 down
 left

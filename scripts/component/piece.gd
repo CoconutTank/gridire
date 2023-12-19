@@ -1,5 +1,21 @@
-class_name Piece
+class_name GamePiece
 extends Area2D
+
+
+# The unique ID type for game pieces. Used most commonly with UID_COUNTER.
+const TYPE = "piece"
+
+
+# The unique ID for an instance of piece.
+var uid : String
+
+
+# The current player controller for this piece.
+var controller : GamePlayer = null
+
+
+# The first ever player controller for this piece.
+var initial_controller : GamePlayer = null
 
 
 # Stores the piece display type for this piece.
@@ -27,7 +43,7 @@ var modifiers = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	uid = GlobalCache.generate_uid(TYPE)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,8 +74,17 @@ func on_unselect():
 
 # Specifically checks if the Area2D that entered is a map cursor. If so, tells
 # the SignalHub to emit the over_selectable signal (and pass in itself).
+# It's not clear what causes the order of processing, but if the cursor moves
+# between selectable pieces, 'over_selectable' is processed before
+# 'off_selectable', which causes the cursor to have a neutral display while it
+# is over a selectable piece, which is incorrect.
+# Perhaps '_on_area_entered' is just processed earlier in Godot's logic,
+# relative to '_on_area_exited'?
+# In any case, a brief delay has been applied to make sure the cursor's display
+# is correct.
 func _on_area_entered(area):
 	if area is MapCursor:
+		await GlobalCache.await_time(0.01)
 		SignalHub.emit_user_signal("over_selectable", [self])
 
 
@@ -68,3 +93,4 @@ func _on_area_entered(area):
 func _on_area_exited(area):
 	if area is MapCursor:
 		SignalHub.emit_user_signal("off_selectable", [self])
+

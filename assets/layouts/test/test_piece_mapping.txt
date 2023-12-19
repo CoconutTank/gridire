@@ -1,1 +1,2 @@
 s,smiley_face
+r,raspberry_face

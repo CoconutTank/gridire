@@ -15,9 +15,11 @@ func _process(delta):
 
 
 # Checks a given file path to make sure it is valid.
-func verify_file_path(file_path : String):
+# Can be given an optional flag to check for whether or not the file exists.
+# By default, the check_file_exists flag is true.
+func validate_file_path(file_path : String, check_file_exists := true):
 	var error_messages = PackedStringArray()
-	if !FileAccess.file_exists(file_path):
+	if check_file_exists && !FileAccess.file_exists(file_path):
 		error_messages.append("File path does not exist (for Godot).")
 	if !file_path.begins_with(GlobalCache.USER_DIR) && !file_path.begins_with(GlobalCache.RES_DIR):
 		error_messages.append(
@@ -38,7 +40,7 @@ func verify_file_path(file_path : String):
 # Checks a given coordinate pair to make sure it is valid for the given bounds.
 # By default, minimum values (inclusive) for column and row are 0, and maximum 
 # values (exclusive) for column and row are maximum integer value.
-func verify_coordinates(
+func validate_coordinates(
 	col : int,
 	row : int,
 	min_col := 0,

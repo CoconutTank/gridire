@@ -24,7 +24,7 @@ extends Node
 ## [br]
 ## - confirm
 ## [br]
-## - selected,[{"name":"affected_piece","type":"Piece"}]
+## - selected,[{"name":"affected_piece","type":"GamePiece"}]
 @export var user_signal_file_path : String
 
 
@@ -48,7 +48,7 @@ func create_user_signal(signal_name : String, signal_args := []):
 		if print_signal_hub_activity:
 			print(signal_name + " user signal created!")
 	else:
-		GlobalVerifier.print_error_messages(
+		GlobalValidator.print_error_messages(
 			"!!Error!! user signal already created: '" 
 			+ signal_name + "'")
 
@@ -62,7 +62,7 @@ func connect_user_signal(signal_name : String, callback : Callable):
 			+ callback.get_method()
 			+ "!")
 	else:
-		GlobalVerifier.print_error_messages(
+		GlobalValidator.print_error_messages(
 			"!!Error!! Attempting to connect to unknown user signal: '" 
 			+ signal_name + "'")
 
@@ -81,7 +81,7 @@ func emit_user_signal(signal_name : String, signal_args := []):
 			else:
 				print(signal_name + " encountered an error when emitted...")
 	else:
-		GlobalVerifier.print_error_messages(
+		GlobalValidator.print_error_messages(
 			"!!Error!! Attempting to emit unknown user signal: '" 
 			+ signal_name + "'")
 
@@ -89,7 +89,7 @@ func emit_user_signal(signal_name : String, signal_args := []):
 # Adds additional user signals by file from the given file path.
 func add_user_signals_via_file(file_path : String):
 	# Verify that the given file path is compliant.
-	if GlobalVerifier.verify_file_path(file_path):
+	if GlobalValidator.validate_file_path(file_path):
 		var user_signal_lines = FileAccess.open(file_path, FileAccess.READ).get_as_text().split(GlobalCache.NEW_LINE_DELIMITER)
 		for line in user_signal_lines:
 			if !line.dedent().is_empty():
@@ -100,7 +100,7 @@ func add_user_signals_via_file(file_path : String):
 					if user_signal_arguments != null:
 						create_user_signal(user_signal_name, user_signal_arguments)
 					else:
-						GlobalVerifier.print_error_messages(
+						GlobalValidator.print_error_messages(
 							"!!Error!! Unable to parse the given user signal arguments: '" 
 							+ user_signal_data[1] + "'")
 				else:

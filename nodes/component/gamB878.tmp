@@ -1,18 +1,18 @@
 [gd_scene load_steps=7 format=3 uid="uid://bk6gqt3y7ug41"]
 
-[ext_resource type="Script" path="res://scripts/component/piece.gd" id="1_u4qgt"]
-[ext_resource type="Texture2D" uid="uid://c33atpeont21j" path="res://assets/graphics/test/piece/ready_smiley_face_001.png" id="2_5yh5x"]
-[ext_resource type="Texture2D" uid="uid://6cfsc2qi0tid" path="res://assets/graphics/test/piece/smiley_face.png" id="2_mlqt6"]
-[ext_resource type="Texture2D" uid="uid://d1dpoovlwtoqk" path="res://assets/graphics/test/piece/ready_smiley_face_002.png" id="3_g4brl"]
+[ext_resource type="Script" path="res://scripts/component/piece.gd" id="1_xlk3g"]
+[ext_resource type="Texture2D" uid="uid://c33atpeont21j" path="res://assets/graphics/test/piece/ready_smiley_face_001.png" id="2_ltvoe"]
+[ext_resource type="Texture2D" uid="uid://d1dpoovlwtoqk" path="res://assets/graphics/test/piece/ready_smiley_face_002.png" id="3_x6xyf"]
+[ext_resource type="Texture2D" uid="uid://6cfsc2qi0tid" path="res://assets/graphics/test/piece/smiley_face.png" id="4_ss1xf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ay3nu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_5yh5x")
+"texture": ExtResource("2_ltvoe")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_g4brl")
+"texture": ExtResource("3_x6xyf")
 }],
 "loop": true,
 "name": &"ready_smiley_face",
@@ -20,7 +20,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_mlqt6")
+"texture": ExtResource("4_ss1xf")
 }],
 "loop": true,
 "name": &"smiley_face",
@@ -30,10 +30,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hey13"]
 size = Vector2(48, 48)
 
-[node name="Piece" type="Area2D"]
+[node name="GamePiece" type="Area2D"]
 collision_layer = 4
 collision_mask = 6
-script = ExtResource("1_u4qgt")
+script = ExtResource("1_xlk3g")
 
 [node name="PieceAnims" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ay3nu")
